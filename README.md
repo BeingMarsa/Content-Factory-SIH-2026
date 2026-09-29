@@ -119,7 +119,7 @@ flowchart TD
 Before setting up the project locally, ensure you have:
 * **Node.js**: `v18.18.0` or higher (`v20+` or `v22+` recommended). Check with `node -v`.
 * **npm** or **pnpm** or **yarn**: `npm v9+` is bundled with Node.js.
-* **Google Gemini API Key**: Obtain a free API key from [Google AI Studio](https://aistudio.google.com/).
+* **Google Gemini API Key**: Obtain a API key from [Google Cloud](https://aistudio.google.com/) under Gemini API section.
 * **MongoDB Atlas URI** *(Optional)*: If you want transformation history logged to a database. The app runs smoothly in-memory if MongoDB is omitted.
 
 ---
