@@ -1,6 +1,6 @@
-# Content Factory // Studio Edition (SIH 2026)
+# Content Factory [SIH26154]
 
-> **An enterprise-grade, multi-modal content transformation engine designed to ingest raw manuscripts, research papers, data sheets, and executive circulars, transforming them into publication-ready, format-specialized deliverables.**
+> **A multi-modal content transformation platform designed to ingest raw texts, research papers, financial documents, data sheets, and executive circulars, transforming them into format-specialized deliverables.**
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.3.5-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.3.0-blue?style=flat&logo=react)](https://react.dev/)
@@ -47,7 +47,7 @@ Content Factory supports 7 distinct, publication-grade output formats:
 | Deliverable | Key Capabilities & Features | Export Format |
 | :--- | :--- | :--- |
 | **Keynote Presentation** | 5-slide strategic deck, interactive slide carousel, expandable presenter discourse/script, left/right keyboard navigation | Programmatic `.pptx` (via `pptxgenjs`) |
-| **Monochrome Infographic** | High-contrast Black & White data architecture, 6 modular entity cards, overarching executive theme, 7-step alternating flow (Alpha/Beta columns) | High-Res 2× `.png` (via `html2canvas`) |
+| **Infographic** | High-contrast Black & White data architecture, 6 modular entity cards, overarching executive theme, 7-step alternating flow (Alpha/Beta columns) | High-Res 2× `.png` (via `html2canvas`) |
 | **Video Package** | Full scene-by-scene script with timecode timestamps, audio/visual cues, visual storyboard grid, synthetic speech preview | Formatted `.txt` & Web Speech TTS |
 | **Executive Summary** | In-depth strategic briefing: Strategic Context, Empirical Findings, Actionable Roadmap (no prompt boilerplate) | One-Click Clipboard Copy |
 | **Executive Advisory** | High-priority risk assessment: Situational Assessment, Operational Vulnerabilities, Concrete Mandatory Directives | One-Click Clipboard Copy |
@@ -119,7 +119,7 @@ flowchart TD
 Before setting up the project locally, ensure you have:
 * **Node.js**: `v18.18.0` or higher (`v20+` or `v22+` recommended). Check with `node -v`.
 * **npm** or **pnpm** or **yarn**: `npm v9+` is bundled with Node.js.
-* **Google Gemini API Key**: Obtain a free API key from [Google AI Studio](https://aistudio.google.com/).
+* **Google Gemini API Key**: Obtain a API key from [Google AI Studio](https://aistudio.google.com/) [a paid account is preferred, as it gurantees the availability of models every time].
 * **MongoDB Atlas URI** *(Optional)*: If you want transformation history logged to a database. The app runs smoothly in-memory if MongoDB is omitted.
 
 ---
@@ -164,7 +164,6 @@ MONGODB_URI="mongodb+srv://username:password@cluster.mongodb.net/ContentFactory?
 npm run dev
 ```
 
-Open your browser and navigate to **`http://localhost:3000`**.
 
 ### 5. Build for Production
 ```bash
@@ -187,7 +186,7 @@ npm run start
 
 ---
 
-## ☁️ Deployment on Vercel
+## ☁️ Deployment on Vercel [Preferred]
 
 Content Factory is fully optimized for single-click deployment on **[Vercel](https://vercel.com/)**.
 
@@ -211,7 +210,7 @@ Under the **Environment Variables** section, add:
 * In MongoDB Atlas, make sure **Network Access** includes `0.0.0.0/0` (Allow access from anywhere) so Vercel's serverless IP pool can connect.
 
 ### Step 4: Deploy
-Click **Deploy**. Once the build completes (~1 minute), your application will be live at `https://your-project.vercel.app`.
+Click **Deploy**. Once the build completes (~1 minute), your application will be live at the webpage.
 
 > [!TIP]
 > The transformation API route specifies `export const maxDuration = 60;` and `export const dynamic = "force-dynamic";` to allow serverless execution up to 60 seconds on Vercel.
@@ -250,23 +249,12 @@ Click **Deploy**. Once the build completes (~1 minute), your application will be
    Individual HTTP requests are guarded with `signal: AbortSignal.timeout(10000)`, preventing stalled network connections from freezing the serverless process.
 4. **Zero-Downtime Dynamic Synthesizer**:
    If all live AI models are saturated or an API key is unconfigured, the system automatically activates its procedural fallback synthesizer, extracting actual sentences, key metrics, and themes from your uploaded document without crashing.
+   However, this synthesizer is not very capable, and it often generate mistakes.
 5. **Active Fallback Visibility**:
    Whenever the offline fallback is activated, a prominent amber notification banner is displayed at the top of the **Exhibition** gallery, alerting the operator with transparency.
 
 ---
 
-## ❓ Troubleshooting & FAQ
-
-#### Q: Why does the output show a "Resilient Fallback Active" notice on Vercel?
-**A:** On Vercel, `.env.local` is not deployed for security reasons. You must add `ANTIGRAVITY_API_KEY` (or `GEMINI_API_KEY`) to **Vercel Project Settings → Environment Variables** and click **Redeploy**.
-
-#### Q: How can I change the presentation styling?
-**A:** Presentation styling is configured in `src/app/page.tsx` within `PresentationGenerator`. The slides use an editorial dark brutalist palette (`#0a0a0c` dark canvas, `#ffffff` headers, `#a1a1aa` body copy, and gold accent dividers `#eab308`).
-
-#### Q: Can I run Content Factory completely offline?
-**A:** Yes. If no API key is supplied, Content Factory operates in offline heuristic mode using the procedural text extraction pipeline.
-
----
 
 ## 📄 License
 

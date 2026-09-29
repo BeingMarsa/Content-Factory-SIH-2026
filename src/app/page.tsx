@@ -331,7 +331,7 @@ function PresentationGenerator({ rawText }: { rawText: string }) {
   };
 
   return (
-    <div className="border border-white/[0.12] bg-[#111116] p-6 sm:p-10 space-y-6">
+    <div className="border border-white/[0.12] bg-white/[0.025] backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] p-6 sm:p-10 space-y-6 rounded-2xl">
       {/* Top Header & Action */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
         <div className="flex items-center gap-3">
@@ -350,7 +350,7 @@ function PresentationGenerator({ rawText }: { rawText: string }) {
           type="button"
           onClick={generatePPTX}
           disabled={status === 'generating'}
-          className="flex items-center justify-center gap-2 font-mono text-xs border border-white/[0.15] bg-[#14141a] px-5 py-2.5 text-[#f7f7f5] hover:bg-white/10 transition-all disabled:opacity-50"
+          className="flex items-center justify-center gap-2 font-mono text-xs border border-white/[0.15] bg-white/[0.04] backdrop-blur-md px-5 py-2.5 text-[#f7f7f5] hover:bg-white/[0.1] hover:border-white/[0.25] transition-all disabled:opacity-50 rounded-xl shadow-sm"
         >
           {status === 'generating' ? (
             <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Exporting .pptx...</>
@@ -367,7 +367,7 @@ function PresentationGenerator({ rawText }: { rawText: string }) {
       {/* ------------------------------------------------------------- */}
       {/* Interactive 16:9 Slide Canvas Preview                         */}
       {/* ------------------------------------------------------------- */}
-      <div className="relative w-full aspect-[16/9] min-h-[380px] sm:min-h-[460px] bg-[#0c0c10] border border-white/[0.14] p-8 sm:p-14 flex flex-col justify-between overflow-hidden shadow-2xl">
+      <div className="relative w-full aspect-[16/9] min-h-[380px] sm:min-h-[460px] bg-[#0c0c10]/85 backdrop-blur-xl border border-white/[0.14] p-8 sm:p-14 flex flex-col justify-between overflow-hidden shadow-2xl rounded-2xl">
         {/* Subtle grid backdrop */}
         <div
           className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -405,7 +405,7 @@ function PresentationGenerator({ rawText }: { rawText: string }) {
             {activeSlide.bullets.map((bullet, bIdx) => (
               <div
                 key={bIdx}
-                className="flex items-start gap-3.5 p-3.5 bg-white/[0.02] border border-white/[0.05]"
+                className="flex items-start gap-3.5 p-3.5 bg-white/[0.03] backdrop-blur-md border border-white/[0.08] rounded-xl shadow-sm"
               >
                 <span className="text-[#8e8e96] text-xs font-mono select-none mt-0.5">◇</span>
                 <p className="font-sans text-xs sm:text-sm text-[#d4d4d8] leading-relaxed">
@@ -421,7 +421,7 @@ function PresentationGenerator({ rawText }: { rawText: string }) {
           <button
             type="button"
             onClick={() => setShowNotes(!showNotes)}
-            className="font-mono text-[10px] uppercase tracking-widest text-[#8e8e96] hover:text-[#f7f7f5] transition-colors flex items-center gap-1.5"
+            className="font-mono text-[10px] uppercase tracking-widest text-[#8e8e96] hover:text-[#f7f7f5] transition-colors flex items-center gap-1.5 px-2.5 py-1 hover:bg-white/5 rounded-md"
           >
             <span>🎙️</span>
             {showNotes ? '[ Hide Speaker Notes ]' : '[ View Speaker Notes ]'}
@@ -436,13 +436,13 @@ function PresentationGenerator({ rawText }: { rawText: string }) {
       {/* ------------------------------------------------------------- */}
       {/* Slide Navigation Strip                                         */}
       {/* ------------------------------------------------------------- */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#14141a] p-4 border border-white/[0.08]">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/[0.02] backdrop-blur-md p-4 border border-white/[0.1] rounded-xl shadow-inner">
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setCurrentSlide((prev) => Math.max(0, prev - 1))}
             disabled={activeIndex === 0}
-            className="flex items-center gap-1 font-mono text-xs border border-white/[0.12] px-3 py-1.5 text-[#f7f7f5] hover:bg-white/10 disabled:opacity-30 transition-all"
+            className="flex items-center gap-1 font-mono text-xs border border-white/[0.12] bg-white/[0.02] px-3 py-1.5 text-[#f7f7f5] hover:bg-white/[0.08] disabled:opacity-30 transition-all rounded-lg"
           >
             <ChevronLeft className="h-3.5 w-3.5" /> Previous
           </button>
@@ -451,7 +451,7 @@ function PresentationGenerator({ rawText }: { rawText: string }) {
             type="button"
             onClick={() => setCurrentSlide((prev) => Math.min(slides.length - 1, prev + 1))}
             disabled={activeIndex === slides.length - 1}
-            className="flex items-center gap-1 font-mono text-xs border border-white/[0.12] px-3 py-1.5 text-[#f7f7f5] hover:bg-white/10 disabled:opacity-30 transition-all"
+            className="flex items-center gap-1 font-mono text-xs border border-white/[0.12] bg-white/[0.02] px-3 py-1.5 text-[#f7f7f5] hover:bg-white/[0.08] disabled:opacity-30 transition-all rounded-lg"
           >
             Next <ChevronRight className="h-3.5 w-3.5" />
           </button>
@@ -464,10 +464,10 @@ function PresentationGenerator({ rawText }: { rawText: string }) {
               key={idx}
               type="button"
               onClick={() => setCurrentSlide(idx)}
-              className={`font-mono text-[11px] px-3 py-1 border transition-all ${
+              className={`font-mono text-[11px] px-3 py-1 border transition-all rounded-lg ${
                 idx === activeIndex
-                  ? 'bg-[#f7f7f5] text-[#0a0a0c] border-[#f7f7f5] font-bold'
-                  : 'bg-transparent text-[#8e8e96] border-white/[0.1] hover:text-[#f7f7f5] hover:border-white/30'
+                  ? 'bg-[#f7f7f5] text-[#0a0a0c] border-[#f7f7f5] font-bold shadow-md'
+                  : 'bg-white/[0.02] text-[#8e8e96] border-white/[0.08] hover:text-[#f7f7f5] hover:border-white/20 hover:bg-white/[0.05]'
               }`}
             >
               0{idx + 1}
@@ -484,7 +484,7 @@ function PresentationGenerator({ rawText }: { rawText: string }) {
       {/* Expandable Speaker Notes Drawer                               */}
       {/* ------------------------------------------------------------- */}
       {showNotes && (
-        <div className="border-l-2 border-amber-400/50 bg-[#14141b] p-5 border border-white/[0.08] space-y-2">
+        <div className="border border-amber-500/20 border-l-2 border-l-amber-400/80 bg-amber-500/[0.04] backdrop-blur-md p-5 space-y-2 rounded-xl shadow-lg">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber-300">
               PRESENTER DISCOURSE // SPEAKER SCRIPT (SLIDE 0{activeIndex + 1})
@@ -496,7 +496,7 @@ function PresentationGenerator({ rawText }: { rawText: string }) {
                   navigator.clipboard.writeText(activeSlide.speakerNotes);
                 }
               }}
-              className="font-mono text-[10px] text-[#8e8e96] hover:text-[#f7f7f5] uppercase tracking-widest"
+              className="font-mono text-[10px] text-[#8e8e96] hover:text-[#f7f7f5] uppercase tracking-widest px-2 py-1 hover:bg-white/5 rounded-md"
             >
               [ Copy Notes ]
             </button>
@@ -678,7 +678,7 @@ function InfographicGenerator({ rawText }: { rawText: string }) {
   const hasFlowNodes = data.leftNodes.length > 0 || data.rightNodes.length > 0;
 
   return (
-    <div className="border border-white/[0.12] bg-[#000000] p-6 sm:p-10 space-y-6">
+    <div className="border border-white/[0.12] bg-white/[0.02] backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] p-6 sm:p-10 space-y-6 rounded-2xl">
       {/* Top Controls Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.12] pb-4">
         <div className="flex items-center gap-3">
@@ -697,7 +697,7 @@ function InfographicGenerator({ rawText }: { rawText: string }) {
           type="button"
           onClick={downloadPNG}
           disabled={status === 'generating'}
-          className="flex items-center justify-center gap-2 font-mono text-xs border border-white/[0.25] bg-[#000000] px-5 py-2.5 text-[#ffffff] hover:bg-white hover:text-black transition-all disabled:opacity-50"
+          className="flex items-center justify-center gap-2 font-mono text-xs border border-white/[0.2] bg-white/[0.04] backdrop-blur-md px-5 py-2.5 text-[#ffffff] hover:bg-white hover:text-black transition-all disabled:opacity-50 rounded-xl shadow-sm"
         >
           {status === 'generating' ? (
             <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Exporting PNG...</>
@@ -726,6 +726,7 @@ function InfographicGenerator({ rawText }: { rawText: string }) {
           margin: '0 auto',
           position: 'relative',
           border: '1px solid rgba(255, 255, 255, 0.2)',
+          borderRadius: '24px',
           boxSizing: 'border-box',
         }}
       >
@@ -825,6 +826,7 @@ function InfographicGenerator({ rawText }: { rawText: string }) {
                     style={{
                       backgroundColor: 'rgba(255, 255, 255, 0.02)',
                       border: '1px solid rgba(255, 255, 255, 0.18)',
+                      borderRadius: '16px',
                       padding: '22px 20px',
                       display: 'flex',
                       flexDirection: 'column',
@@ -840,6 +842,7 @@ function InfographicGenerator({ rawText }: { rawText: string }) {
                           fontFamily: 'monospace',
                           color: '#ffffff',
                           border: '1px solid rgba(255, 255, 255, 0.3)',
+                          borderRadius: '6px',
                           padding: '2px 8px',
                           letterSpacing: '0.15em',
                           textTransform: 'uppercase',
@@ -881,7 +884,7 @@ function InfographicGenerator({ rawText }: { rawText: string }) {
                 ))}
               </div>
             ) : (
-              <div style={{ padding: '24px', border: '1px dashed rgba(255,255,255,0.15)', textAlign: 'center' }}>
+              <div style={{ padding: '24px', border: '1px dashed rgba(255,255,255,0.15)', borderRadius: '16px', textAlign: 'center' }}>
                 <span style={{ fontSize: '11px', fontFamily: 'monospace', color: 'rgba(255,255,255,0.5)' }}>
                   NO DISCRETE MODULE METRICS IN SOURCE TEXT
                 </span>
@@ -894,8 +897,8 @@ function InfographicGenerator({ rawText }: { rawText: string }) {
             <div
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                borderTop: '1px solid rgba(255, 255, 255, 0.25)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.25)',
+                border: '1px solid rgba(255, 255, 255, 0.22)',
+                borderRadius: '16px',
                 padding: '24px 28px',
                 marginBottom: '44px',
               }}
@@ -959,6 +962,7 @@ function InfographicGenerator({ rawText }: { rawText: string }) {
                       style={{
                         backgroundColor: '#000000',
                         border: '1px solid rgba(255, 255, 255, 0.18)',
+                        borderRadius: '14px',
                         padding: '16px 18px',
                       }}
                     >
@@ -986,6 +990,7 @@ function InfographicGenerator({ rawText }: { rawText: string }) {
                       style={{
                         backgroundColor: '#000000',
                         border: '1px solid rgba(255, 255, 255, 0.18)',
+                        borderRadius: '14px',
                         padding: '16px 18px',
                       }}
                     >
@@ -1109,7 +1114,7 @@ function VideoPackageGenerator({ rawText }: { rawText: string }) {
   };
 
   return (
-    <div className="border border-white/[0.12] bg-[#111116] p-6 sm:p-10 space-y-6">
+    <div className="border border-white/[0.12] bg-white/[0.025] backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] p-6 sm:p-10 space-y-6 rounded-2xl">
       <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
         <div className="flex items-center gap-2">
           <Film className="h-4 w-4 text-[#f7f7f5]" />
@@ -1127,7 +1132,7 @@ function VideoPackageGenerator({ rawText }: { rawText: string }) {
         <button
           type="button"
           onClick={toggleNarration}
-          className="flex items-center gap-2 font-mono text-xs border border-white/[0.15] px-4 py-2 text-[#f7f7f5] hover:bg-white/10 transition-all"
+          className="flex items-center gap-2 font-mono text-xs border border-white/[0.15] bg-white/[0.03] backdrop-blur-md px-4 py-2.5 text-[#f7f7f5] hover:bg-white/[0.08] hover:border-white/[0.25] transition-all rounded-xl shadow-sm"
         >
           {isPlaying ? (
             <><VolumeX className="h-3.5 w-3.5 text-rose-400" /> [ Stop Voiceover ]</>
@@ -1138,7 +1143,7 @@ function VideoPackageGenerator({ rawText }: { rawText: string }) {
         <button
           type="button"
           onClick={downloadScript}
-          className="flex items-center gap-2 font-mono text-xs border border-white/[0.15] px-4 py-2 text-[#f7f7f5] hover:bg-white/10 transition-all"
+          className="flex items-center gap-2 font-mono text-xs border border-white/[0.15] bg-white/[0.03] backdrop-blur-md px-4 py-2.5 text-[#f7f7f5] hover:bg-white/[0.08] hover:border-white/[0.25] transition-all rounded-xl shadow-sm"
         >
           <Download className="h-3.5 w-3.5" /> [ Download Script ]
         </button>
@@ -1147,11 +1152,11 @@ function VideoPackageGenerator({ rawText }: { rawText: string }) {
       {/* Visual Storyboard Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {scenes.slice(0, 9).map((scene, idx) => (
-          <div key={idx} className="border border-white/[0.08] bg-[#0c0c10] p-5 flex flex-col justify-between space-y-3">
+          <div key={idx} className="border border-white/[0.1] bg-white/[0.025] backdrop-blur-md p-5 flex flex-col justify-between space-y-3 rounded-xl hover:border-white/[0.2] hover:bg-white/[0.04] transition-all shadow-sm">
             {/* Fake video frame */}
-            <div className="aspect-video bg-gradient-to-br from-white/[0.04] to-white/[0.01] flex items-center justify-center relative overflow-hidden">
+            <div className="aspect-video bg-gradient-to-br from-white/[0.05] to-white/[0.01] backdrop-blur-sm flex items-center justify-center relative overflow-hidden rounded-lg border border-white/[0.06]">
               <span className="text-3xl opacity-15">&#127916;</span>
-              <span className="absolute top-2 left-2 font-mono text-[9px] text-[#8e8e96] bg-black/60 px-1.5 py-0.5">
+              <span className="absolute top-2 left-2 font-mono text-[9px] text-[#8e8e96] bg-black/60 px-1.5 py-0.5 rounded">
                 SCENE {String(idx + 1).padStart(2, '0')}
               </span>
               <span className="absolute bottom-2 right-2 font-mono text-[9px] text-[#8e8e96]">
@@ -1173,7 +1178,7 @@ function VideoPackageGenerator({ rawText }: { rawText: string }) {
       )}
 
       {/* Limitation Note */}
-      <div className="border border-amber-500/20 bg-amber-500/[0.04] p-4">
+      <div className="border border-amber-500/25 bg-amber-500/[0.04] backdrop-blur-md p-4 rounded-xl shadow-sm">
         <p className="text-amber-200/60 text-xs font-mono">
           [ NOTE ] Actual .mp4 video generation requires specialized AI services (Runway ML, HeyGen, Synthesia).
           This package provides the complete production-ready script &amp; storyboard for your video team.
@@ -1348,16 +1353,23 @@ export default function EditorialDashboard() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] text-[#f7f7f5] antialiased">
+    <div className="min-h-screen bg-[#0a0a0c] text-[#f7f7f5] antialiased relative overflow-x-hidden">
+      {/* Ambient background glows for glassmorphic depth & refraction */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute -top-40 left-1/4 w-[500px] h-[500px] bg-white/[0.02] rounded-full blur-[140px]" />
+        <div className="absolute top-1/3 -right-32 w-[600px] h-[600px] bg-white/[0.015] rounded-full blur-[160px]" />
+        <div className="absolute bottom-1/4 -left-32 w-[550px] h-[550px] bg-white/[0.02] rounded-full blur-[150px]" />
+      </div>
+
       {/* Header */}
-      <header className="border-b border-white/[0.08] px-6 lg:px-16 py-6 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-[#0a0a0c]/80 backdrop-blur-xl border-b border-white/[0.08] px-6 lg:px-16 py-6 flex items-center justify-between">
         <div className="flex items-baseline gap-4">
           <span className="font-serif text-2xl font-normal tracking-tight">
-            Content Factory<span className="text-[#8e8e96] font-mono text-xs ml-2">/ STUDIO EDITION</span>
+            Content Factory<span className="text-[#8e8e96] font-mono text-xs ml-2">[SIH26154]</span>
           </span>
         </div>
         <div className="flex items-center gap-6 font-mono text-[11px] uppercase tracking-widest text-[#8e8e96]">
-          <span>PARIS // 2026</span>
+          <span>SIH 2026</span>
           <span className="flex items-center gap-2 text-[#f7f7f5]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#f7f7f5] animate-ping" />
             CORE ACTIVE
@@ -1366,17 +1378,21 @@ export default function EditorialDashboard() {
       </header>
 
       {/* Hero Headline */}
-      <section className="px-6 lg:px-16 pt-20 pb-16 border-b border-white/[0.08]">
+      <section className="relative z-10 px-6 lg:px-16 pt-20 pb-16 border-b border-white/[0.08]">
         <div className="max-w-6xl">
           <div className="font-mono text-xs uppercase tracking-[0.25em] text-[#8e8e96] mb-6 flex items-center gap-2">
             <Asterisk className="h-3.5 w-3.5 text-[#f7f7f5]" />
-            TRANSFORMATION ENGINE &middot; AN EXPERIMENTAL LABORATORY
+            TRANSFORMATION ENGINE
           </div>
           <h1 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-normal leading-[0.98] tracking-tight text-[#f7f7f5]">
-            Synthesize raw thought into{" "}
+            Transform raw{" "}
             <em className="italic font-serif font-light text-[#8e8e96] selection:text-[#0a0a0c]">
-              sculpted
+              information
             </em>{" "}
+            into{" "}
+            <span className="underline underline-offset-[4px] sm:underline-offset-[6px] lg:underline-offset-[8px] decoration-[3px] sm:decoration-[4px] lg:decoration-[5px] decoration-[#f7f7f5]">
+              sculpted
+            </span>{" "}
             discourse.
           </h1>
           <p className="mt-8 font-sans text-base sm:text-lg text-[#8e8e96] max-w-2xl leading-relaxed">
@@ -1386,48 +1402,66 @@ export default function EditorialDashboard() {
       </section>
 
       {/* Studio Workspace */}
-      <main className="px-6 lg:px-16 py-16 max-w-7xl mx-auto">
+      <main className="relative z-10 px-6 lg:px-16 py-16 max-w-7xl mx-auto">
         <form onSubmit={handleSubmit} className="space-y-20">
           {/* Section 01: Input & Docs */}
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4">
             <div className="lg:col-span-4">
-              <div className="font-mono text-xs tracking-widest uppercase text-[#8e8e96] mb-2">( 01 ) // INPUT</div>
-              <h2 className="font-serif text-3xl font-normal tracking-tight text-[#f7f7f5]">Primary Manuscripts &amp; Archives</h2>
-              <p className="font-sans text-xs sm:text-sm text-[#8e8e96] mt-3 leading-relaxed">
+              <div className="font-mono text-sm tracking-widest uppercase text-[#8e8e96] mb-2">( 01 ) // INPUT</div>
+              <h2 className="font-serif text-3xl sm:text-4xl font-normal tracking-tight text-[#f7f7f5]">Primary Manuscripts &amp; Archives</h2>
+              <p className="font-sans text-sm sm:text-base text-[#a0a0a8] mt-3 leading-relaxed">
                 Paste source discourse or deposit files (PDF, DOCX, Spreadsheets, Media).
               </p>
             </div>
 
-            <div className="lg:col-span-8 space-y-4">
-              <Textarea
-                id="sourceContent"
-                placeholder="Paste strategic briefings, meeting notes, research, or copy draft here..."
-                className="min-h-[220px] rounded-none border border-white/[0.12] bg-[#111115] text-[#f7f7f5] placeholder:text-[#55555c] focus-visible:ring-1 focus-visible:ring-[#f7f7f5] font-serif text-base leading-relaxed p-6"
-                value={sourceContent}
-                onChange={(e) => setSourceContent(e.target.value)}
-              />
+            <div className="lg:col-span-8 space-y-5">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="sourceContent" className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">
+                    Source Discourse &amp; Manuscripts
+                  </Label>
+                  <span className="font-mono text-[11px] text-[#8e8e96] uppercase tracking-wider">[ Paste text ]</span>
+                </div>
+                <Textarea
+                  id="sourceContent"
+                  placeholder="Paste strategic briefings, meeting notes, research, or copy draft here..."
+                  className="min-h-[220px] rounded-2xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-xl text-[#f7f7f5] text-base sm:text-lg placeholder:text-base sm:placeholder:text-lg placeholder:text-[#6e6e78] focus-visible:ring-1 focus-visible:ring-[#f7f7f5] font-serif leading-relaxed p-6 sm:p-7 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]"
+                  value={sourceContent}
+                  onChange={(e) => setSourceContent(e.target.value)}
+                />
+              </div>
 
-              <div
-                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-                onDragLeave={() => setIsDragging(false)}
-                onDrop={(e) => { e.preventDefault(); setIsDragging(false); if (e.dataTransfer.files) addFiles(e.dataTransfer.files); }}
-                onClick={() => fileInputRef.current?.click()}
-                className={`flex flex-col items-center justify-center p-8 border border-dashed text-center cursor-pointer transition-all ${
-                  isDragging ? "border-[#f7f7f5] bg-white/[0.04]" : "border-white/[0.12] bg-[#111115]/50 hover:border-white/[0.3]"
-                }`}
-              >
-                <input ref={fileInputRef} type="file" multiple accept={ACCEPTED_MIME_TYPES} className="hidden" onChange={(e) => { if (e.target.files) addFiles(e.target.files); }} />
-                <Upload className="h-5 w-5 text-[#8e8e96] mb-2 stroke-[1.5]" />
-                <span className="font-mono text-xs uppercase tracking-widest text-[#f7f7f5]">Deposit Archives / Manuscripts</span>
-                <span className="font-sans text-[11px] text-[#8e8e96] mt-1">PDF &middot; DOCX &middot; XLSX &middot; PPTX &middot; UP TO 10 MB</span>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">
+                    File Ingestion &amp; Manuscripts
+                  </span>
+                  <span className="font-mono text-[11px] text-[#8e8e96] uppercase tracking-wider">[ Up to 10 MB ]</span>
+                </div>
+                <div
+                  onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                  onDragLeave={() => setIsDragging(false)}
+                  onDrop={(e) => { e.preventDefault(); setIsDragging(false); if (e.dataTransfer.files) addFiles(e.dataTransfer.files); }}
+                  onClick={() => fileInputRef.current?.click()}
+                  className={`flex flex-col items-center justify-center p-8 border border-dashed text-center cursor-pointer transition-all rounded-2xl backdrop-blur-md ${
+                    isDragging
+                      ? "border-[#f7f7f5] bg-white/[0.06] shadow-[0_8px_32px_0_rgba(255,255,255,0.05)]"
+                      : "border-white/[0.14] bg-white/[0.02] hover:border-white/[0.3] hover:bg-white/[0.04] shadow-[0_8px_32px_0_rgba(0,0,0,0.25)]"
+                  }`}
+                >
+                  <input ref={fileInputRef} type="file" multiple accept={ACCEPTED_MIME_TYPES} className="hidden" onChange={(e) => { if (e.target.files) addFiles(e.target.files); }} />
+                  <Upload className="h-6 w-6 text-[#8e8e96] mb-2.5 stroke-[1.5]" />
+                  <span className="font-mono text-sm sm:text-base uppercase tracking-widest text-[#f7f7f5] font-medium">Deposit Archives / Manuscripts</span>
+                  <span className="font-sans text-xs sm:text-sm text-[#a0a0a8] mt-1.5">PDF &middot; DOCX &middot; XLSX &middot; PPTX &middot; UP TO 10 MB</span>
+                </div>
               </div>
 
               {attachedFiles.length > 0 && (
-                <div className="divide-y divide-white/[0.06] border border-white/[0.08] bg-[#111115]">
+                <div className="divide-y divide-white/[0.06] border border-white/[0.1] bg-white/[0.025] backdrop-blur-xl rounded-xl overflow-hidden shadow-sm">
                   {attachedFiles.map((file, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-3 text-xs">
-                      <span className="font-mono text-xs text-[#f7f7f5] truncate">{file.name}</span>
-                      <button type="button" onClick={() => removeFile(idx)} className="font-mono text-[10px] text-[#8e8e96] hover:text-[#f7f7f5]">[ Detach ]</button>
+                    <div key={idx} className="flex items-center justify-between p-3.5 text-xs sm:text-sm">
+                      <span className="font-mono text-xs sm:text-sm text-[#f7f7f5] truncate">{file.name}</span>
+                      <button type="button" onClick={() => removeFile(idx)} className="font-mono text-xs text-[#8e8e96] hover:text-[#f7f7f5] px-2.5 py-1 hover:bg-white/10 rounded-md transition-colors">[ Detach ]</button>
                     </div>
                   ))}
                 </div>
@@ -1438,48 +1472,48 @@ export default function EditorialDashboard() {
           {/* Section 02: Positioning */}
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-t border-white/[0.08] pt-16">
             <div className="lg:col-span-4">
-              <div className="font-mono text-xs tracking-widest uppercase text-[#8e8e96] mb-2">( 02 ) // DIRECTIVES</div>
-              <h2 className="font-serif text-3xl font-normal tracking-tight text-[#f7f7f5]">Atmosphere &amp; Posture</h2>
+              <div className="font-mono text-sm tracking-widest uppercase text-[#8e8e96] mb-2">( 02 ) // DIRECTIVES</div>
+              <h2 className="font-serif text-3xl sm:text-4xl font-normal tracking-tight text-[#f7f7f5]">Atmosphere &amp; Posture</h2>
             </div>
 
             <div className="lg:col-span-8 grid gap-6 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label className="font-mono text-[10px] uppercase tracking-widest text-[#8e8e96]">Target Audience</Label>
+              <div className="space-y-5.5">
+                <Label className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">Target Audience</Label>
                 <Select value={config.targetAudience} onValueChange={(v) => handleConfigChange("targetAudience", v)}>
-                  <SelectTrigger className="rounded-none border border-white/[0.12] bg-[#111115] text-xs font-mono uppercase text-[#f7f7f5]"><SelectValue /></SelectTrigger>
-                  <SelectContent className="bg-[#111115] text-xs font-mono text-[#f7f7f5]">{CONFIG_OPTIONS.targetAudience.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
+                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
+                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.targetAudience.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label className="font-mono text-[10px] uppercase tracking-widest text-[#8e8e96]">Voice &amp; Posture</Label>
+              <div className="space-y-5.5">
+                <Label className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">Voice &amp; Posture</Label>
                 <Select value={config.toneStyle} onValueChange={(v) => handleConfigChange("toneStyle", v)}>
-                  <SelectTrigger className="rounded-none border border-white/[0.12] bg-[#111115] text-xs font-mono uppercase text-[#f7f7f5]"><SelectValue /></SelectTrigger>
-                  <SelectContent className="bg-[#111115] text-xs font-mono text-[#f7f7f5]">{CONFIG_OPTIONS.toneStyle.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
+                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
+                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.toneStyle.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label className="font-mono text-[10px] uppercase tracking-widest text-[#8e8e96]">Language</Label>
+              <div className="space-y-5.5">
+                <Label className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">Language</Label>
                 <Select value={config.language} onValueChange={(v) => handleConfigChange("language", v)}>
-                  <SelectTrigger className="rounded-none border border-white/[0.12] bg-[#111115] text-xs font-mono uppercase text-[#f7f7f5]"><SelectValue /></SelectTrigger>
-                  <SelectContent className="bg-[#111115] text-xs font-mono text-[#f7f7f5]">{CONFIG_OPTIONS.language.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
+                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
+                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.language.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label className="font-mono text-[10px] uppercase tracking-widest text-[#8e8e96]">Detail Resolution</Label>
+              <div className="space-y-5.5">
+                <Label className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">Detail Resolution</Label>
                 <Select value={config.levelOfDetail} onValueChange={(v) => handleConfigChange("levelOfDetail", v)}>
-                  <SelectTrigger className="rounded-none border border-white/[0.12] bg-[#111115] text-xs font-mono uppercase text-[#f7f7f5]"><SelectValue /></SelectTrigger>
-                  <SelectContent className="bg-[#111115] text-xs font-mono text-[#f7f7f5]">{CONFIG_OPTIONS.levelOfDetail.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
+                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
+                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.levelOfDetail.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
 
-              <div className="space-y-2 sm:col-span-2">
-                <Label className="font-mono text-[10px] uppercase tracking-widest text-[#8e8e96]">Strategic Objective</Label>
+              <div className="space-y-5.5 sm:col-span-2">
+                <Label className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">Strategic Objective</Label>
                 <Select value={config.communicationObjective} onValueChange={(v) => handleConfigChange("communicationObjective", v)}>
-                  <SelectTrigger className="rounded-none border border-white/[0.12] bg-[#111115] text-xs font-mono uppercase text-[#f7f7f5]"><SelectValue /></SelectTrigger>
-                  <SelectContent className="bg-[#111115] text-xs font-mono text-[#f7f7f5]">{CONFIG_OPTIONS.communicationObjective.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
+                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
+                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.communicationObjective.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
             </div>
@@ -1488,16 +1522,18 @@ export default function EditorialDashboard() {
           {/* Section 03: Deliverables Catalog */}
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-t border-white/[0.08] pt-16">
             <div className="lg:col-span-4">
-              <div className="font-mono text-xs tracking-widest uppercase text-[#8e8e96] mb-2">( 03 ) // CATALOG</div>
-              <h2 className="font-serif text-3xl font-normal tracking-tight text-[#f7f7f5]">Artifact Editions</h2>
-              <div className="mt-6 flex items-center gap-3 font-mono text-xs">
+              <div className="font-mono text-sm tracking-widest uppercase text-[#8e8e96] mb-2">( 03 ) // CATALOG</div>
+              <h2 className="font-serif text-3xl sm:text-4xl font-normal tracking-tight text-[#f7f7f5]">Artifact Editions</h2>
+              <div className="mt-6 flex items-center gap-3 font-mono text-sm">
                 <button type="button" onClick={selectAll} className="underline text-[#8e8e96] hover:text-[#f7f7f5]">Select All</button>
                 <button type="button" onClick={deselectAll} className="underline text-[#8e8e96] hover:text-[#f7f7f5]">Clear All</button>
               </div>
             </div>
 
-            <div className="lg:col-span-8 divide-y divide-white/[0.08] border-t border-b border-white/[0.08]">
-              {OUTPUT_TYPES.map((outputType) => {
+            <div className="lg:col-span-8 divide-y divide-white/[0.08] border border-white/[0.12] rounded-2xl overflow-hidden bg-white/[0.02] backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
+              {[...OUTPUT_TYPES]
+                .sort((a, b) => CATALOG_ITEMS[a].num.localeCompare(CATALOG_ITEMS[b].num))
+                .map((outputType) => {
                 const item = CATALOG_ITEMS[outputType];
                 const isSelected = selectedOutputs.has(outputType);
 
@@ -1505,24 +1541,24 @@ export default function EditorialDashboard() {
                   <div
                     key={outputType}
                     onClick={() => handleOutputToggle(outputType)}
-                    className={`py-5 px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer transition-colors ${
-                      isSelected ? "bg-[#14141a]" : "hover:bg-white/[0.02]"
+                    className={`py-5 px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer transition-all ${
+                      isSelected ? "bg-white/[0.05] backdrop-blur-sm" : "hover:bg-white/[0.025]"
                     }`}
                   >
                     <div className="flex items-center gap-4">
-                      <span className="font-mono text-xs text-[#8e8e96]">{item.num}</span>
+                      <span className="font-mono text-sm text-[#a0a0a8] font-medium">{item.num}</span>
                       <div>
                         <div className="flex items-baseline gap-3">
-                          <h3 className={`font-serif text-xl ${isSelected ? "text-[#f7f7f5]" : "text-[#8e8e96]"}`}>{outputType}</h3>
-                          <span className="font-mono text-[9px] uppercase tracking-widest text-[#8e8e96]">[{item.category}]</span>
+                          <h3 className={`font-serif text-xl sm:text-2xl ${isSelected ? "text-[#f7f7f5]" : "text-[#8e8e96]"}`}>{outputType}</h3>
+                          <span className="font-mono text-xs uppercase tracking-widest text-[#a0a0a8]">[{item.category}]</span>
                         </div>
-                        <p className="font-sans text-xs text-[#8e8e96] mt-0.5">{item.subtitle}</p>
+                        <p className="font-sans text-xs sm:text-sm text-[#8e8e96] mt-1">{item.subtitle}</p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-4 self-end sm:self-center">
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-[#8e8e96]">{item.format}</span>
-                      <Checkbox checked={isSelected} onCheckedChange={() => handleOutputToggle(outputType)} className="rounded-none border-white/30 data-[state=checked]:bg-[#f7f7f5] data-[state=checked]:text-[#0a0a0c]" />
+                      <span className="font-mono text-xs uppercase tracking-widest text-[#a0a0a8]">{item.format}</span>
+                      <Checkbox checked={isSelected} onCheckedChange={() => handleOutputToggle(outputType)} className="rounded-md border-white/30 data-[state=checked]:bg-[#f7f7f5] data-[state=checked]:text-[#0a0a0c]" />
                     </div>
                   </div>
                 );
@@ -1530,7 +1566,7 @@ export default function EditorialDashboard() {
             </div>
           </section>
 
-          {error && <div className="border border-rose-500/50 bg-rose-500/10 p-4 font-mono text-xs text-rose-300">[ ERROR ] : {error}</div>}
+          {error && <div className="border border-rose-500/50 bg-rose-500/10 p-4 font-mono text-xs text-rose-300 rounded-xl">[ ERROR ] : {error}</div>}
 
           {/* Submit */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6">
@@ -1545,7 +1581,7 @@ export default function EditorialDashboard() {
                 setIsFallback(false);
                 setFallbackReason(null);
               }}
-              className="font-mono text-xs uppercase tracking-widest text-[#8e8e96] hover:text-[#f7f7f5]"
+              className="font-mono text-xs uppercase tracking-widest text-[#8e8e96] hover:text-[#f7f7f5] px-4 py-2.5 hover:bg-white/[0.05] rounded-xl transition-all"
             >
               [ Reset Parameters ]
             </button>
@@ -1553,7 +1589,7 @@ export default function EditorialDashboard() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full sm:w-auto px-10 py-5 bg-[#f7f7f5] text-[#0a0a0c] font-mono text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#dededc] transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+              className="w-full sm:w-auto px-10 py-5 bg-[#f7f7f5] text-[#0a0a0c] font-mono text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#dededc] transition-all flex items-center justify-center gap-3 disabled:opacity-50 rounded-xl"
             >
               {isLoading ? <><Loader2 className="h-4 w-4 animate-spin" /> Synthesizing Visual Deliverables...</> : <>Commission Synthesis ({selectedOutputs.size}) <ArrowUpRight className="h-4 w-4" /></>}
             </button>
@@ -1574,7 +1610,7 @@ export default function EditorialDashboard() {
 
             {/* Fallback Notice Banner */}
             {isFallback && (
-              <div className="border border-amber-500/40 bg-[#16120a] p-5 sm:p-6 flex items-start gap-4 transition-all">
+              <div className="border border-amber-500/30 bg-amber-500/[0.05] backdrop-blur-xl p-5 sm:p-6 flex items-start gap-4 rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all">
                 <AlertTriangle className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   <div className="font-mono text-xs uppercase tracking-widest text-amber-300 font-semibold flex items-center gap-2">
@@ -1603,12 +1639,13 @@ export default function EditorialDashboard() {
 
               {Array.from(selectedOutputs)
                 .filter(o => !["Presentation", "Infographic", "Video Package"].includes(o))
+                .sort((a, b) => CATALOG_ITEMS[a].num.localeCompare(CATALOG_ITEMS[b].num))
                 .map(outputType => {
                   const textContent = getDeliverableText(outputType);
                   if (!textContent.trim()) return null;
 
                   return (
-                    <div key={outputType} className="border border-white/[0.1] bg-[#111115] p-8 sm:p-14">
+                    <div key={outputType} className="border border-white/[0.12] bg-white/[0.025] backdrop-blur-xl p-8 sm:p-14 rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.4)]">
                       <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/[0.08]">
                         <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8e8e96]">
                           {outputType} &middot; TEXT ARCHIVE
@@ -1619,7 +1656,7 @@ export default function EditorialDashboard() {
                             setCopied(true);
                             setTimeout(() => setCopied(false), 2000);
                           }}
-                          className="font-mono text-xs uppercase tracking-widest text-[#8e8e96] hover:text-white transition-all flex items-center gap-2"
+                          className="font-mono text-xs uppercase tracking-widest text-[#8e8e96] hover:text-white transition-all flex items-center gap-2 px-3 py-1.5 hover:bg-white/5 rounded-lg border border-transparent hover:border-white/10"
                         >
                           {copied ? <><Check className="h-3.5 w-3.5 text-emerald-400" /> COPIED</> : <><Copy className="h-3.5 w-3.5" /> COPY TEXT</>}
                         </button>
@@ -1637,8 +1674,8 @@ export default function EditorialDashboard() {
         )}
       </main>
 
-      <footer className="border-t border-white/[0.08] px-6 lg:px-16 py-12 mt-24 text-center font-mono text-[11px] uppercase tracking-widest text-[#8e8e96]">
-        CONTENT FACTORY &middot; SYSTEM v1.0.0 &middot; VERCEL READY
+      <footer className="border-t border-white/[0.08] px-6 lg:px-16 py-12 mt-24 text-center font-mono text-xs uppercase tracking-widest text-[#8e8e96]">
+        CONTENT FACTORY &middot; Team NEMESIS
       </footer>
     </div>
   );

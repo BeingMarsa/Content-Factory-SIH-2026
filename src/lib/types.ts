@@ -38,21 +38,21 @@ export interface ParsedFileInfo {
 }
 
 export type OutputType =
-  | "Video Package"
+  | "Executive Summary"
   | "LinkedIn Post"
   | "Twitter/X Post"
-  | "Advisory"
+  | "Video Package"
   | "Infographic"
-  | "Executive Summary"
+  | "Advisory"
   | "Presentation";
 
 export const OUTPUT_TYPES: OutputType[] = [
-  "Video Package",
+  "Executive Summary",
   "LinkedIn Post",
   "Twitter/X Post",
-  "Advisory",
+  "Video Package",
   "Infographic",
-  "Executive Summary",
+  "Advisory",
   "Presentation",
 ];
 
