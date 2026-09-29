@@ -27,6 +27,7 @@ import {
   Printer,
   Download,
   CheckCircle2,
+  AlertTriangle,
 } from "lucide-react";
 
 import { Textarea } from "@/components/ui/textarea";
@@ -1196,6 +1197,8 @@ export default function EditorialDashboard() {
   const [isDragging, setIsDragging] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
+  const [isFallback, setIsFallback] = useState(false);
+  const [fallbackReason, setFallbackReason] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -1248,6 +1251,8 @@ export default function EditorialDashboard() {
       e.preventDefault();
       setError(null);
       setResult(null);
+      setIsFallback(false);
+      setFallbackReason(null);
 
       if (!sourceContent.trim() && attachedFiles.length === 0) {
         setError("Please supply primary source text or attach reference documents.");
@@ -1289,6 +1294,8 @@ export default function EditorialDashboard() {
           setError(data.error);
         } else {
           setResult(data.generatedResult);
+          setIsFallback(Boolean(data.isFallback));
+          setFallbackReason(data.fallbackReason || null);
           setTimeout(() => {
             document.getElementById("editorial-exhibition")?.scrollIntoView({ behavior: "smooth" });
           }, 150);
@@ -1529,7 +1536,15 @@ export default function EditorialDashboard() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6">
             <button
               type="button"
-              onClick={() => { setSourceContent(""); setAttachedFiles([]); setConfig(INITIAL_CONFIG); setSelectedOutputs(new Set(["Presentation", "Infographic"])); setResult(null); }}
+              onClick={() => {
+                setSourceContent("");
+                setAttachedFiles([]);
+                setConfig(INITIAL_CONFIG);
+                setSelectedOutputs(new Set(["Presentation", "Infographic"]));
+                setResult(null);
+                setIsFallback(false);
+                setFallbackReason(null);
+              }}
               className="font-mono text-xs uppercase tracking-widest text-[#8e8e96] hover:text-[#f7f7f5]"
             >
               [ Reset Parameters ]
@@ -1556,6 +1571,22 @@ export default function EditorialDashboard() {
                 <h2 className="font-serif text-4xl font-normal tracking-tight text-[#f7f7f5]">Synthesized Transmissions</h2>
               </div>
             </div>
+
+            {/* Fallback Notice Banner */}
+            {isFallback && (
+              <div className="border border-amber-500/40 bg-[#16120a] p-5 sm:p-6 flex items-start gap-4 transition-all">
+                <AlertTriangle className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <div className="font-mono text-xs uppercase tracking-widest text-amber-300 font-semibold flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
+                    [ ENGINE NOTICE: RESILIENT FALLBACK ACTIVE ]
+                  </div>
+                  <p className="font-sans text-sm text-amber-100/90 leading-relaxed">
+                    {fallbackReason || "API is very busy currently, so this is a fallback system working here."}
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className="space-y-14">
               {selectedOutputs.has("Presentation") && (

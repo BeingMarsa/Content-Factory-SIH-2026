@@ -216,7 +216,11 @@ async function callAntigravityAPI(
   sourceContent: string,
   configurations: TransformationConfig,
   parsedFiles: ParsedFileInfo[]
-): Promise<string> {
+): Promise<{
+  result: string;
+  isFallback: boolean;
+  fallbackReason?: string;
+}> {
   const rawKey = (process.env.ANTIGRAVITY_API_KEY || process.env.GEMINI_API_KEY)?.trim().replace(/^["']|["']$/g, "");
 
   const systemInstruction = `You are an elite content strategist and transformation engine.
@@ -311,7 +315,9 @@ Node 6: [BOX 6 TITLE], [BOX 6 DESCRIPTION / DATA POINT]
     for (const model of candidateModels) {
       if (liveResult) break;
       const targetUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(rawKey)}`;
-      const delays = [600, 1200];
+      
+      // 10-second delay between retrying models
+      const delays = [10000];
 
       for (let attempt = 0; attempt <= delays.length; attempt++) {
         try {
@@ -322,6 +328,7 @@ Node 6: [BOX 6 TITLE], [BOX 6 DESCRIPTION / DATA POINT]
               contents: [{ role: "user", parts: [{ text: fullPrompt }] }],
               generationConfig: { temperature: 0.7, maxOutputTokens: 8192 },
             }),
+            signal: AbortSignal.timeout(10000), // 10s fetch timeout per request
           });
 
           if (response.ok) {
@@ -335,7 +342,7 @@ Node 6: [BOX 6 TITLE], [BOX 6 DESCRIPTION / DATA POINT]
           }
 
           if (response.status === 503 || response.status === 429) {
-            console.warn(`[AI Core] ${model} status ${response.status}. Retrying...`);
+            console.warn(`[AI Core] ${model} status ${response.status} (High Demand/Busy). Retrying in 10 seconds...`);
             if (attempt < delays.length) {
               await new Promise((res) => setTimeout(res, delays[attempt]));
               continue;
@@ -347,21 +354,39 @@ Node 6: [BOX 6 TITLE], [BOX 6 DESCRIPTION / DATA POINT]
         } catch (networkErr: unknown) {
           console.warn(`[AI Core] Network error calling ${model}:`, networkErr);
           if (attempt < delays.length) {
+            console.warn(`[AI Core] Waiting 10s before retrying ${model}...`);
             await new Promise((res) => setTimeout(res, delays[attempt]));
           }
         }
       }
     }
+  } else {
+    console.error(
+      "[AI Engine] CRITICAL: Neither ANTIGRAVITY_API_KEY nor GEMINI_API_KEY is defined in the environment!\n" +
+      "If running on Vercel, open Vercel Dashboard -> Project -> Settings -> Environment Variables and add ANTIGRAVITY_API_KEY."
+    );
   }
 
   // If Gemini answered successfully, return it!
   if (liveResult) {
-    return liveResult;
+    return {
+      result: liveResult,
+      isFallback: false,
+    };
   }
 
   // 2. Fail-Safe: Dynamic synthesis extracted directly from user's actual sourceContent
-  console.log("[AI Engine] Live models busy or unavailable. Activating Dynamic Content Synthesizer.");
-  return generateDynamicDeliverables(sourceContent, configurations, requestedOutputs, parsedFiles);
+  const isKeyMissing = !rawKey || rawKey === "your-api-key-here";
+  const fallbackReason = isKeyMissing
+    ? "API key is not configured in Vercel environment variables, so this is a fallback system working here."
+    : "API is very busy currently, so this is a fallback system working here.";
+
+  console.log(`[AI Engine] ${fallbackReason} Activating Dynamic Content Synthesizer.`);
+  return {
+    result: generateDynamicDeliverables(sourceContent, configurations, requestedOutputs, parsedFiles, fallbackReason),
+    isFallback: true,
+    fallbackReason,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -371,7 +396,8 @@ function generateDynamicDeliverables(
   source: string,
   cfg: TransformationConfig,
   requested: OutputType[],
-  files: ParsedFileInfo[]
+  files: ParsedFileInfo[],
+  fallbackReason = "API is very busy currently, so this is a fallback system working here."
 ): string {
   // Extract sentences and concepts from user's actual text
   const cleanSource = source.trim() || files.map((f) => f.extractedText || "").join("\n");
@@ -562,7 +588,7 @@ A comprehensive evaluation was performed to satisfy the strategic directive: **$
     sections.push(`<DELIVERABLE type="${outputType}">\n${content}\n</DELIVERABLE>`);
   }
 
-  const notice = `> ✦ *Synthesized dynamically from source discourse.*\n\n---\n\n`;
+  const notice = `> ⚠️ **Notice:** ${fallbackReason}\n\n---\n\n`;
   return `${notice}${sections.join("\n\n")}`;
 }
 
@@ -656,7 +682,11 @@ export async function POST(request: NextRequest) {
 
     const prompt = buildAntigravityPrompt(payload, parsedFiles);
 
-    const generatedResult = await callAntigravityAPI(
+    const {
+      result: generatedResult,
+      isFallback,
+      fallbackReason,
+    } = await callAntigravityAPI(
       prompt,
       validOutputs,
       sourceContent,
@@ -684,7 +714,13 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json<TransformResponse>(
-      { success: true, generatedResult, historyId },
+      {
+        success: true,
+        generatedResult,
+        historyId,
+        isFallback,
+        fallbackReason,
+      },
       { status: 200 }
     );
   } catch (err: unknown) {

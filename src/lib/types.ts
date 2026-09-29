@@ -20,6 +20,8 @@ export interface TransformResponse {
   success: true;
   generatedResult: string;
   historyId: string;
+  isFallback?: boolean;
+  fallbackReason?: string;
 }
 
 export interface TransformErrorResponse {
