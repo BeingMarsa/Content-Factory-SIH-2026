@@ -1,4 +1,4 @@
-# Content Factory // Studio Edition (SIH 2026)
+# Content Factory (SIH 2026) [SIH26154]
 
 > **An enterprise-grade, multi-modal content transformation engine designed to ingest raw manuscripts, research papers, data sheets, and executive circulars, transforming them into publication-ready, format-specialized deliverables.**
 
