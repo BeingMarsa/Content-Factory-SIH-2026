@@ -178,17 +178,12 @@ npm run start
 | Variable | Required | Description | Example |
 | :--- | :--- | :--- | :--- |
 | `ANTIGRAVITY_API_KEY` | **Yes** (or `GEMINI_API_KEY`) | Google Gemini API key used for synthesis inference | `AIzaSy...` |
-| `GEMINI_API_KEY` | Optional | Fallback variable name for Gemini API key | `AIzaSy...` |
 | `MONGODB_URI` | Optional | MongoDB Atlas connection string for persistent audit logs | `mongodb+srv://user:pass@cluster.mongodb.net/...` |
-
-> [!IMPORTANT]
-> Never commit `.env.local` to version control. The repository's `.gitignore` automatically prevents secret keys from being pushed.
 
 ---
 
 ## ☁️ Deployment on Vercel [Preferred]
 
-Content Factory is fully optimized for single-click deployment on **[Vercel](https://vercel.com/)**.
 
 ### Step 1: Push Code to GitHub
 Ensure all your latest changes are pushed to your GitHub repository.
@@ -210,10 +205,8 @@ Under the **Environment Variables** section, add:
 * In MongoDB Atlas, make sure **Network Access** includes `0.0.0.0/0` (Allow access from anywhere) so Vercel's serverless IP pool can connect.
 
 ### Step 4: Deploy
-Click **Deploy**. Once the build completes (~1 minute), your application will be live at the webpage.
+Click **Deploy**. Once the build completes (~1 minute), the application will be live at the webpage.
 
-> [!TIP]
-> The transformation API route specifies `export const maxDuration = 60;` and `export const dynamic = "force-dynamic";` to allow serverless execution up to 60 seconds on Vercel.
 
 ---
 
