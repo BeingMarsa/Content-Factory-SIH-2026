@@ -379,7 +379,7 @@ Node 6: [BOX 6 TITLE], [BOX 6 DESCRIPTION / DATA POINT]
   const isKeyMissing = !rawKey || rawKey === "your-api-key-here";
   const fallbackReason = isKeyMissing
     ? "API key is not configured in Vercel environment variables, so this is a fallback system working here."
-    : "API is very busy currently, so this is a fallback system working here.";
+    : "API is very busy currently, so this is a fallback system working here. Use a paid Gemini API to avoid this issue.";
 
   console.log(`[AI Engine] ${fallbackReason} Activating Dynamic Content Synthesizer.`);
   return {
@@ -397,7 +397,7 @@ function generateDynamicDeliverables(
   cfg: TransformationConfig,
   requested: OutputType[],
   files: ParsedFileInfo[],
-  fallbackReason = "API is very busy currently, so this is a fallback system working here."
+  fallbackReason = "API is very busy currently, so this is a fallback system working here. Use a paid Gemini API to avoid this issue."
 ): string {
   // Extract sentences and concepts from user's actual text
   const cleanSource = source.trim() || files.map((f) => f.extractedText || "").join("\n");

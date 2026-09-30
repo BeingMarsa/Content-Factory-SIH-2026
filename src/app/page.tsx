@@ -1480,40 +1480,40 @@ export default function EditorialDashboard() {
               <div className="space-y-5.5">
                 <Label className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">Target Audience</Label>
                 <Select value={config.targetAudience} onValueChange={(v) => handleConfigChange("targetAudience", v)}>
-                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
-                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.targetAudience.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
+                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-mono font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
+                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-mono font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.targetAudience.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-5.5">
                 <Label className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">Voice &amp; Posture</Label>
                 <Select value={config.toneStyle} onValueChange={(v) => handleConfigChange("toneStyle", v)}>
-                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
-                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.toneStyle.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
+                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-mono font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
+                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-mono font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.toneStyle.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-5.5">
                 <Label className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">Language</Label>
                 <Select value={config.language} onValueChange={(v) => handleConfigChange("language", v)}>
-                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
-                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.language.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
+                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-mono font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
+                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-mono font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.language.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-5.5">
                 <Label className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">Detail Resolution</Label>
                 <Select value={config.levelOfDetail} onValueChange={(v) => handleConfigChange("levelOfDetail", v)}>
-                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
-                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.levelOfDetail.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
+                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-mono font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
+                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-mono font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.levelOfDetail.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-5.5 sm:col-span-2">
                 <Label className="font-mono text-xs sm:text-sm uppercase tracking-wider text-[#d4d4d8] font-medium">Strategic Objective</Label>
                 <Select value={config.communicationObjective} onValueChange={(v) => handleConfigChange("communicationObjective", v)}>
-                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
-                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-serif font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.communicationObjective.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
+                  <SelectTrigger className="rounded-xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-xs sm:text-[13px] font-mono font-normal uppercase tracking-wider text-[#f7f7f5]/35 hover:text-[#f7f7f5]/80 shadow-sm transition-all h-9 px-3"><SelectValue /></SelectTrigger>
+                  <SelectContent className="bg-[#0e0e13]/95 backdrop-blur-2xl rounded-xl border border-white/[0.14] text-xs sm:text-[13px] font-mono font-normal uppercase tracking-wider text-[#f7f7f5] shadow-2xl">{CONFIG_OPTIONS.communicationObjective.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
             </div>
@@ -1618,7 +1618,7 @@ export default function EditorialDashboard() {
                     [ ENGINE NOTICE: RESILIENT FALLBACK ACTIVE ]
                   </div>
                   <p className="font-sans text-sm text-amber-100/90 leading-relaxed">
-                    {fallbackReason || "API is very busy currently, so this is a fallback system working here."}
+                    {fallbackReason || "API is very busy currently, so this is a fallback system working here. Use a paid Gemini API to avoid this issue."}
                   </p>
                 </div>
               </div>
